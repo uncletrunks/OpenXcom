@@ -302,12 +302,12 @@ void TextEdit::draw()
 	UString newValue = _value;
 	if (Options::keyboardMode == KEYBOARD_OFF)
 	{
-		if (_isFocused && _blink)
+		if (_blink)
 		{
 			newValue += _char;
 		}
 	}
-	_text->setText(Unicode::convUtf32ToUtf8(_value));
+	_text->setText(Unicode::convUtf32ToUtf8(newValue));
 	clear();
 	_text->blit(this);
 	if (Options::keyboardMode == KEYBOARD_ON)
