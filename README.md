@@ -14,6 +14,11 @@ and the [wiki](https://www.ufopaedia.org/index.php/OpenXcom).
 
 Uses modified code from SDL\_gfx (LGPL) with permission from author.
 
+## Building for OpenDingux
+
+* Requires yaml-cpp libs
+* Use cmake with the files from the toolchain, makes things pretty simple.
+
 ## Installation
 
 OpenXcom requires a vanilla copy of the X-COM resources -- from either or both
