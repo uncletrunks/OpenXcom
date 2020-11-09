@@ -67,7 +67,6 @@
 #include <sys/param.h>
 #include <sys/types.h>
 #include <pwd.h>
-#include <execinfo.h>
 #include <cxxabi.h>
 #include <dlfcn.h>
 #include "Unicode.h"
@@ -1044,40 +1043,10 @@ void stackTrace(void *ctx)
 #else
 	Log(LOG_FATAL) << "Unfortunately, no stack trace information is available";
 #endif
-#elif __CYGWIN__
+#elif __CYGWIN__ 
 	Log(LOG_FATAL) << "Unfortunately, no stack trace information is available";
 #else
-	void *frames[32];
-	char buf[1024];
-	int  frame_count = backtrace(frames, 32);
-	char *demangled = NULL;
-	const char *mangled = NULL;
-	int status;
-	size_t sym_offset;
-
-	for (int i = 0; i < frame_count; i++) {
-		Dl_info dl_info;
-		if (dladdr(frames[i], &dl_info )) {
-			demangled = NULL;
-			mangled = dl_info.dli_sname;
-			if ( mangled != NULL) {
-				sym_offset = (char *)frames[i] - (char *)dl_info.dli_saddr;
-				demangled = abi::__cxa_demangle( dl_info.dli_sname, NULL, 0, &status);
-				snprintf(buf, sizeof(buf), "%s(%s+0x%zx) [%p]",
-						dl_info.dli_fname,
-						status == 0 ? demangled : mangled,
-						sym_offset, frames[i] );
-			} else { // symbol not found
-				sym_offset = (char *)frames[i] - (char *)dl_info.dli_fbase;
-				snprintf(buf, sizeof(buf), "%s(+0x%zx) [%p]", dl_info.dli_fname, sym_offset, frames[i]);
-			}
-			free(demangled);
-			Log(LOG_FATAL) << buf;
-		} else { // object not found
-			snprintf(buf, sizeof(buf), "? ? [%p]", frames[i]);
-			Log(LOG_FATAL) << buf;
-		}
-	}
+	Log(LOG_FATAL) << "Unfortunately, no stack trace information is available";
 #endif
 	ctx = (void*)ctx;
 }

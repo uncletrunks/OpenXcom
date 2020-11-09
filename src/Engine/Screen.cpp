@@ -101,7 +101,7 @@ void Screen::makeVideoFlags()
 		_flags |= SDL_NOFRAME;
 	}
 
-	_bpp = (use32bitScaler() || useOpenGL()) ? 32 : 8;
+	_bpp = 8;
 	_baseWidth = Options::baseXResolution;
 	_baseHeight = Options::baseYResolution;
 }
@@ -349,7 +349,7 @@ void Screen::resetDisplay(bool resetVideo)
 		{
 			Log(LOG_ERROR) << SDL_GetError();
 			Log(LOG_INFO) << "Attempting to set display to default resolution...";
-			_screen = SDL_SetVideoMode(640, 400, _bpp, _flags);
+			_screen = SDL_SetVideoMode(640, 480, _bpp, _flags);
 			if (_screen == 0)
 			{
 				if (_flags & SDL_OPENGL)
