@@ -46,6 +46,7 @@ Thumbs.db
 *.log
 *.tlog
 *.zip
+*.opk
 [Dd]ebug*/
 *.lib
 *.sbr
@@ -78,3 +79,4 @@ Dependencies/
 nbproject/
 .tx/
 /makefile
+workspace.code-workspace
