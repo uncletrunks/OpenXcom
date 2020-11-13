@@ -80,3 +80,5 @@ nbproject/
 .tx/
 /makefile
 workspace.code-workspace
+openxcom.opk
+autogen.sh
