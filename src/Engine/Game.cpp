@@ -156,7 +156,6 @@ Game::~Game()
 	delete _mod;
 	delete _screen;
 	delete _fpsCounter;
-	delete _joy;
 
 	Mix_CloseAudio();
 
@@ -270,9 +269,6 @@ void Game::run()
 						}
 					}
 					break;
-				case SDL_JOYAXISMOTION:
-					
-					break;
 				case SDL_MOUSEMOTION:
 				case SDL_MOUSEBUTTONDOWN:
 				case SDL_MOUSEBUTTONUP:
@@ -320,19 +316,18 @@ void Game::run()
 		}
 		
 		//handle joystick stuff
-			{
-				//poll mouse state
-				int mousex, mousey;
-				SDL_GetMouseState(&mousex, &mousey);
-
-				//get axes
-				int16_t joyx = SDL_JoystickGetAxis(_joy, 0);
-				int16_t joyy = SDL_JoystickGetAxis(_joy, 1);
-
-					int16_t x = joyx/3700;
-					int16_t y = joyy/3700;
-					SDL_WarpMouse(mousex + x, mousey + y);
-			}
+		{
+			//poll mouse state
+			int mousex, mousey;
+			SDL_GetMouseState(&mousex, &mousey);
+			//get axes
+			int16_t joyx = SDL_JoystickGetAxis(_joy, 0);
+			int16_t joyy = SDL_JoystickGetAxis(_joy, 1);
+			//divide by magic numbers
+			int16_t x = joyx/3700;
+			int16_t y = joyy/3700;
+			SDL_WarpMouse(mousex + x, mousey + y);
+		}
 
 		// Process rendering
 		if (runningState != PAUSED)
