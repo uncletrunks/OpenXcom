@@ -148,7 +148,9 @@ void OptionsControlsState::addControls(const std::vector<OptionInfo> &keys)
 		std::string keyName = ucWords(SDL_GetKeyName(*key));
 		if (*key == SDLK_UNKNOWN)
 			keyName = "";
-		_lstControls->addRow(2, name.c_str(), keyName.c_str());
+		if (*key != SDLK_WORLD_95){
+			_lstControls->addRow(2, name.c_str(), keyName.c_str());
+		}
 	}
 }
 

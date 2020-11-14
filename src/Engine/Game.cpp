@@ -282,7 +282,7 @@ void Game::run()
 					_screen->handle(&action);
 					_cursor->handle(&action);
 					_fpsCounter->handle(&action);
-					if (action.getDetails()->type == SDL_KEYDOWN)
+					/*if (action.getDetails()->type == SDL_KEYDOWN)
 					{
 						// "ctrl-g" grab input
 						if (action.getDetails()->key.keysym.sym == SDLK_g && (SDL_GetModState() & KMOD_CTRL) != 0)
@@ -303,7 +303,7 @@ void Game::run()
 								_states.back()->redrawText();
 							}
 						}
-					}
+					}*/
 					_states.back()->handle(&action);
 					break;
 			}
