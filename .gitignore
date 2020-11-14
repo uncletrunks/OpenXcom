@@ -82,3 +82,5 @@ nbproject/
 workspace.code-workspace
 openxcom.opk
 autogen.sh
+.vscode/settings.json
+.vscode/c_cpp_properties.json
