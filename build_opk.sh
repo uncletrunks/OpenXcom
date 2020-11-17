@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd build
-make -j$(nproc)
+make -j$(nproc) || exit
 cd ..
 
 convert res/linux/icons/openxcom_48x48.png  -resize 32x32! build/bin/icon.png
