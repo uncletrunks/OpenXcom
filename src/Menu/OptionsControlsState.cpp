@@ -266,10 +266,10 @@ std::string OptionsControlsState::keyToButton(SDLKey key){
 			keyName = "B";
 			break;
 		case SDLK_LSHIFT:
-			keyName = "X";
+			keyName = "Y";
 			break;
 		case SDLK_SPACE:
-			keyName = "Y";
+			keyName = "X";
 			break;
 		case SDLK_TAB:
 			keyName = "L";
