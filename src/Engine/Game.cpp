@@ -314,20 +314,8 @@ void Game::run()
 				break;
 			}
 		}
-		
-		//handle joystick stuff
-		{
-			//poll mouse state
-			int mousex, mousey;
-			SDL_GetMouseState(&mousex, &mousey);
-			//get axes
-			int16_t joyx = SDL_JoystickGetAxis(_joy, 0);
-			int16_t joyy = SDL_JoystickGetAxis(_joy, 1);
-			int fps = _fpsCounter -> getFPS();
-			int16_t x = 10 * ((double)Options::FPS/(double)fps) * ((double)joyx/32766.0);
-			int16_t y = 10 * ((double)Options::FPS/(double)fps) * ((double)joyy/32766.0);
-			SDL_WarpMouse(mousex + x, mousey + y);
-		}
+
+		handleJoystick();
 
 		// Process rendering
 		if (runningState != PAUSED)
@@ -572,6 +560,23 @@ void Game::setMouseActive(bool active)
 {
 	_mouseActive = active;
 	_cursor->setVisible(active);
+}
+
+/**
+ * Handles joystick to mouse conversion for controllers
+ */
+void Game::handleJoystick()	
+{
+	//poll mouse state
+	int mousex, mousey;
+	SDL_GetMouseState(&mousex, &mousey);
+	//get axes
+	int16_t joyx = SDL_JoystickGetAxis(_joy, 0);
+	int16_t joyy = SDL_JoystickGetAxis(_joy, 1);
+	int fps = _fpsCounter -> getFPS();
+	int16_t x = 10 * ((double)Options::FPS/(double)fps) * ((double)joyx/32766.0);
+	int16_t y = 10 * ((double)Options::FPS/(double)fps) * ((double)joyy/32766.0);
+	SDL_WarpMouse(mousex + x, mousey + y);
 }
 
 /**

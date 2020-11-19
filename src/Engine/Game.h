@@ -55,6 +55,7 @@ private:
 	int _timeUntilNextFrame;
 	static const double VOLUME_GRADIENT;
 	SDL_Joystick *_joy;
+	void handleJoystick();
 public:
 	/// Creates a new game and initializes SDL.
 	Game(const std::string &title);
