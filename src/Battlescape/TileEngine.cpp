@@ -1252,13 +1252,14 @@ void TileEngine::explode(Position center, int power, ItemDamageType type, int ma
 
 	for (int fi = -90; fi <= 90; fi += 5)
 	{
+		//breaking these out of the nested loop looks a little uglier but saves ~240 expensive trig functions
+		double sin_fi = sin(Deg2Rad(fi));
+		double cos_fi = cos(Deg2Rad(fi));
 		// raytrace every 3 degrees makes sure we cover all tiles in a circle.
 		for (int te = 0; te <= 360; te += 3)
 		{
 			double cos_te = cos(Deg2Rad(te));
 			double sin_te = sin(Deg2Rad(te));
-			double sin_fi = sin(Deg2Rad(fi));
-			double cos_fi = cos(Deg2Rad(fi));
 
 			origin = _save->getTile(Position(centerX, centerY, centerZ));
 			dest = origin;
@@ -2420,11 +2421,17 @@ int TileEngine::calculateParabola(Position origin, Position target, bool storeTr
 		//initla value for small hack to glue `calculateLine` into one continuous arc
 		trajectory->push_back(lastPosition);
 	}
+
+	double cos_te = cos(te);
+	double sin_te = sin(te);
+	double cos_fi = cos(fi);
+	double sin_fi = sin(fi);
+
 	while (z > 0)
 	{
-		x = (int)((double)origin.x + (double)i * cos(te) * sin(fi));
-		y = (int)((double)origin.y + (double)i * sin(te) * sin(fi));
-		z = (int)((double)origin.z + (double)i * cos(fi) - zK * ((double)i - ro / 2.0) * ((double)i - ro / 2.0) + zA);
+		x = (int)((double)origin.x + (double)i * cos_te * sin_fi);
+		y = (int)((double)origin.y + (double)i * sin_te * sin_fi);
+		z = (int)((double)origin.z + (double)i * cos_fi - zK * ((double)i - ro / 2.0) * ((double)i - ro / 2.0) + zA);
 		//passes through this point?
 		nextPosition = Position(x,y,z);
 

@@ -1825,13 +1825,16 @@ void BattlescapeState::saveVoxelView()
 	for (int y = -256+32; y < 256+32; ++y)
 	{
 		ang_y = (((double)y)/640*M_PI+M_PI/2);
+		double sin_ang_y = sin(ang_y);
+		double cos_ang_y = cos(ang_y);
 		for (int x = -256; x < 256; ++x)
 		{
 			ang_x = ((double)x/1024)*M_PI+dir;
+			double sin_ang_x = sin(ang_x);
 
-			targetVoxel.x=originVoxel.x + (int)(-sin(ang_x)*1024*sin(ang_y));
-			targetVoxel.y=originVoxel.y + (int)(cos(ang_x)*1024*sin(ang_y));
-			targetVoxel.z=originVoxel.z + (int)(cos(ang_y)*1024);
+			targetVoxel.x=originVoxel.x + (int)(-sin_ang_x*1024*sin_ang_y);
+			targetVoxel.y=originVoxel.y + (int)(cos(ang_x)*1024*sin_ang_y);
+			targetVoxel.z=originVoxel.z + (int)(cos_ang_y*1024);
 
 			_trajectory.clear();
 			test = _save->getTileEngine()->calculateLine(originVoxel, targetVoxel, false, &_trajectory, bu, true, !_debug) +1;
